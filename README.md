@@ -7,3 +7,6 @@
 * sudo apt-get install git
 ### localhost  URL ###
 * http://localhost:3000
+
+### MongoDB  URL ###
+* mongodb://localhost:27017/library
