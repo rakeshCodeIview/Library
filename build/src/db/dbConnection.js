@@ -9,10 +9,11 @@ var constant = require('../config/config');
 var chalk_1 = __importDefault(require("chalk"));
 function connect() {
     var dbName = constant.MONGO.DB_NAME;
-    var dbUrl = constant.MONGO.DB_URL + dbName;
+    var dbUrl = "" + constant.MONGO.DB_URL + dbName;
+    console.log(dbUrl);
     return mongoose.connect(dbUrl)
         .then(function () {
-        console.log(chalk_1.default.yellowBright.bgMagenta.bold(constant.DB.CONNECTED));
+        console.log(chalk_1.default.yellowBright.bgMagenta.bold(constant.DB.CONNECTED, ":", dbUrl));
     });
 }
 exports.connect = connect;
