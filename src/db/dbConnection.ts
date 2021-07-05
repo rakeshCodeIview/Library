@@ -1,10 +1,13 @@
 import mongoose =require('mongoose')
 const constant = require('../config/config')
-// import mongoose from 'mongoose'
+import  chalk from 'chalk';
+
 
 export function connect(){
-    return mongoose.connect("mongodb://localhost:27017/library")
+    const dbName=constant.MONGO.DB_NAME
+    let dbUrl=constant.MONGO.DB_URL+dbName;
+    return mongoose.connect(dbUrl)
     .then(()=>{
-        console.log(constant.DB.CONNECTED)
+        console.log(chalk.yellowBright.bgMagenta.bold(constant.DB.CONNECTED))
     })
 }

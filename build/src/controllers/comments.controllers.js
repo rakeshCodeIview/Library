@@ -35,33 +35,91 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var commentsUtil = require('../utils/comments.utils');
-var Constant = require('../config/config');
-function createComments(commentsData) {
-    return __awaiter(this, void 0, void 0, function () {
-        var result, err_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, commentsUtil.createComments(commentsData)];
-                case 1:
-                    result = _a.sent();
-                    return [2 /*return*/, {
-                            status: Constant.STATUS_CODE.OK,
-                            data: result
-                        }];
-                case 2:
-                    err_1 = _a.sent();
-                    return [2 /*return*/, {
-                            status: Constant.STATUS_CODE.BAD_REQUEST,
-                            data: err_1
-                        }];
-                case 3: return [2 /*return*/];
-            }
-        });
+var commentConstant = require('../config/config');
+var createComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var commentData, data, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                commentData = req.body;
+                return [4 /*yield*/, commentsUtil.createComments(commentData)];
+            case 1:
+                data = _a.sent();
+                res.status(commentConstant.STATUS_CODE.OK)
+                    .send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: commentConstant.STATUS_CODE.BAD_REQUEST,
+                    data: commentConstant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
+}); };
+var createRecComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var commentData, data, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                commentData = req.body;
+                return [4 /*yield*/, commentsUtil.createRecComments(commentData)];
+            case 1:
+                data = _a.sent();
+                res.status(commentConstant.STATUS_CODE.OK)
+                    .send({
+                    status: commentConstant.STATUS_CODE.OK,
+                    data: commentConstant.COMMENT.ADD
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: commentConstant.STATUS_CODE.BAD_REQUEST,
+                    data: commentConstant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var getCommentById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var reqData, data, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                reqData = req.query;
+                console.log(reqData.id);
+                return [4 /*yield*/, commentsUtil.getCommentById(reqData.id)];
+            case 1:
+                data = _a.sent();
+                console.log(data);
+                res.status(commentConstant.STATUS_CODE.OK)
+                    .send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: commentConstant.STATUS_CODE.BAD_REQUEST,
+                    data: commentConstant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 module.exports = {
-    createComments: createComments
+    createComments: createComments,
+    createRecComments: createRecComments,
+    getCommentById: getCommentById
 };

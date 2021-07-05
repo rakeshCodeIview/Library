@@ -3,11 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var comments_model_1 = require("../models/comments.model");
 var constant = require('../config/config');
 var ObjectId = require('mongoose').Types.ObjectId;
+function getCommentById(_id) {
+    return new Promise(function (resolve, reject) {
+        comments_model_1.Comment.findOne({
+            _id: new ObjectId(_id)
+        }, function (err, data) {
+            if (err || !data)
+                reject(err);
+            else
+                console.log(data);
+            resolve(data);
+        });
+    });
+}
 function createComments(comments) {
-    // console.log(comments)
     return new Promise(function (resolve, reject) {
         comments_model_1.Comment.create({
             comment: comments.comment,
+            nickName: comments.nickName,
             createdAt: new Date(),
             articleId: new ObjectId(comments.articleId)
         }, function (err, data) {
@@ -21,6 +34,33 @@ function createComments(comments) {
         });
     });
 }
+function createRecComments(comments) {
+    new Promise(function (resolve, reject) {
+        try {
+            comments_model_1.Comment.findOne({ _id: new ObjectId(comments.commentId) }, function (err, res) {
+                if (err || !res) {
+                    reject(err);
+                }
+                res.recComments.push({
+                    comment: comments.comment,
+                    nickName: comments.nickName,
+                    Date: new Date()
+                });
+                res.save(function (err, data) {
+                    if (err)
+                        reject(err);
+                    else
+                        resolve(data);
+                });
+            });
+        }
+        catch (err) {
+            reject(new Error(constant.ERROR.BAD_REQUEST));
+        }
+    });
+}
 module.exports = {
-    createComments: createComments
+    createComments: createComments,
+    createRecComments: createRecComments,
+    getCommentById: getCommentById
 };

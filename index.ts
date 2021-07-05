@@ -3,9 +3,10 @@ const constant = require('./src/config/config')
 import bodyParser=require('body-parser')
 import routes from './src/routes/routes'
 import {connect} from './src/db/dbConnection';
-connect();
+import  chalk from 'chalk';
+
 var app = express()
-var port = 3000 || process.env.PORT
+var port =constant.SERVER.PORT
 
 
 app.use(bodyParser.urlencoded({extended:true}))
@@ -15,5 +16,6 @@ app.get('/', function (req, res) {
     res.send("ping")
 })
 app.listen(port, () => {
-    console.log(`${constant.SERVER_STARTED} ${port}`)
+    console.log(chalk.yellowBright.bgMagenta.bold(`${constant.SERVER_STARTED} : ${port}`))
+    connect();
 })

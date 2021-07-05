@@ -5,6 +5,12 @@ var mongoose_1 = require("mongoose");
 var commentSchema = new mongoose_1.Schema({
     comment: String,
     createdAt: Date,
+    nickName: String,
+    recComments: [{
+            comment: String,
+            nickName: String,
+            Date: Date
+        }],
     articleId: mongoose_1.Schema.Types.ObjectId
 });
 exports.Comment = (0, mongoose_1.model)('Comment', commentSchema);
