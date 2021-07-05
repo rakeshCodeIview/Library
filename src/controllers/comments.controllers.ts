@@ -1,6 +1,7 @@
 const commentsUtil = require('../utils/comments.utils')
 const commentConstant = require('../config/config')
 import { Request, Response } from 'express';
+var ObjectId = require('mongoose').Types.ObjectId;
 
 let createComments = async (req: Request, res: Response) => {
     try {
@@ -20,7 +21,9 @@ let createComments = async (req: Request, res: Response) => {
 let createRecComments=async (req: Request, res: Response) => {
     try {
         let commentData = req.body;
+        let _id=new ObjectId(commentData.commentId) 
         let data = await commentsUtil.createRecComments(commentData)
+        
         res.status(commentConstant.STATUS_CODE.OK)
             .send({
                 status: commentConstant.STATUS_CODE.OK,
@@ -38,7 +41,6 @@ let createRecComments=async (req: Request, res: Response) => {
 let getCommentById = async (req: Request, res: Response) => {
     try {
         let reqData = req.query;
-        console.log(reqData.id)
         let data = await commentsUtil.getCommentById(reqData.id);
         console.log(data)
         res.status(commentConstant.STATUS_CODE.OK)

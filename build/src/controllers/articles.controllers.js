@@ -56,7 +56,7 @@ var pushArticle = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 res.status(constant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: constant.STATUS_CODE.BAD_REQUEST,
-                    data: constant.ERROR.BAD_REQUEST
+                    data: constant.ERROR.BAD_REQUES
                 });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];

@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var commentsUtil = require('../utils/comments.utils');
 var commentConstant = require('../config/config');
+var ObjectId = require('mongoose').Types.ObjectId;
 var createComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var commentData, data, err_1;
     return __generator(this, function (_a) {
@@ -64,12 +65,13 @@ var createComments = function (req, res) { return __awaiter(void 0, void 0, void
     });
 }); };
 var createRecComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var commentData, data, err_2;
+    var commentData, _id, data, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 commentData = req.body;
+                _id = new ObjectId(commentData.commentId);
                 return [4 /*yield*/, commentsUtil.createRecComments(commentData)];
             case 1:
                 data = _a.sent();
@@ -98,7 +100,6 @@ var getCommentById = function (req, res) { return __awaiter(void 0, void 0, void
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 reqData = req.query;
-                console.log(reqData.id);
                 return [4 /*yield*/, commentsUtil.getCommentById(reqData.id)];
             case 1:
                 data = _a.sent();

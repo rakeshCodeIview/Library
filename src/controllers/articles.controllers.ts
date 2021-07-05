@@ -12,7 +12,8 @@ let pushArticle = async (req: Request, res: Response) => {
         res.status(constant.STATUS_CODE.BAD_REQUEST)
             .send({
                 status: constant.STATUS_CODE.BAD_REQUEST,
-                data: constant.ERROR.BAD_REQUEST
+                data: constant.ERROR.BAD_REQUES
+                
             })
     }
 }
