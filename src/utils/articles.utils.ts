@@ -38,11 +38,11 @@ function listArticle(articleId: any) {
 }
 
 function listAllArticle(page: string) {
-    let pageSize=constant.PAGESIZE;
-    let _page=parseInt(page)
-    let _skip=(_page-1)*pageSize;
+    let pageSize = constant.PAGESIZE;
+    let _page = parseInt(page)
+    let _skip = (_page - 1) * pageSize;
     return new Promise((resolve, reject) => {
-        Article.find({}, null, { skip:_skip, limit: pageSize },
+        Article.find({}, null, { skip: _skip, limit: pageSize },
             function (err: any, data: any) {
                 if (err)
                     reject(err)
@@ -51,9 +51,34 @@ function listAllArticle(page: string) {
             })
     })
 }
+function listComments(id_: string) {
+    return new Promise((resolve, reject) => {
+        console.log(id_)
+        Article.aggregate([
+            { $match: { _id: new ObjectId(id_) } },
+            {
+                $lookup: {
+                    from: "comments",
+                    localField: "_id",
+                    foreignField: "articleId",
+                    as: "articleComment"
+                }
+
+            }
+        ]).exec((err, data) => {
+            if (err)
+                reject(err)
+            else
+                resolve(data)
+        })
+
+    })
+}
+
 
 module.exports = {
     pushArticle: pushArticle,
     listArticle: listArticle,
-    listAllArticle: listAllArticle
+    listAllArticle: listAllArticle,
+    listComments: listComments
 }

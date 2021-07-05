@@ -47,8 +47,30 @@ function listAllArticle(page) {
         });
     });
 }
+function listComments(id_) {
+    return new Promise(function (resolve, reject) {
+        console.log(id_);
+        articles_model_1.Article.aggregate([
+            { $match: { _id: new ObjectId(id_) } },
+            {
+                $lookup: {
+                    from: "comments",
+                    localField: "_id",
+                    foreignField: "articleId",
+                    as: "articleComment"
+                }
+            }
+        ]).exec(function (err, data) {
+            if (err)
+                reject(err);
+            else
+                resolve(data);
+        });
+    });
+}
 module.exports = {
     pushArticle: pushArticle,
     listArticle: listArticle,
-    listAllArticle: listAllArticle
+    listAllArticle: listAllArticle,
+    listComments: listComments
 };

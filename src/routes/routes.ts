@@ -1,76 +1,19 @@
 import { Router, Request, Response } from 'express';
 const constant = require('../config/config')
 var router = Router();
-const articleControleer = require('../controllers/articles.controllers')
+const articleControler = require('../controllers/articles.controllers')
 const commentControler = require('../controllers/comments.controllers')
+const validateMiddleware = require('../middleWares/validate.middleware')
+const articleValidator = require('../validatiors/articles.validators')
+const commentValidator = require('../validatiors/comments.validators')
 
-router.get('/listArticles', async (req: Request, res: Response) => {
-    try {
-        let reqData = req.query;
-        let data = await articleControleer.listArticle(reqData.id);
-        console.log(data)
-        res.status(constant.STATUS_CODE.OK)
-            .send(data)
-    } catch (err) {
-        res.status(constant.STATUS_CODE.BAD_REQUEST)
-            .send({
-                status: constant.STATUS_CODE.BAD_REQUEST,
-                data: constant.ERROR.BAD_REQUEST
-            })
-    }
-
-
-})
-
-router.get('/listAllArticles', async (req: Request, res: Response) => {
-    try {
-        let page = req.query.page
-        let data = await articleControleer.listAllArticle(page);
-        console.log(data)
-        res.status(constant.STATUS_CODE.OK)
-            .send(data)
-    } catch (err) {
-        res.status(constant.STATUS_CODE.BAD_REQUEST)
-            .send({
-                status: constant.STATUS_CODE.BAD_REQUEST,
-                data: constant.ERROR.BAD_REQUEST
-            })
-    }
-
-
-})
-router.post('/postArticles', async (req: Request, res: Response) => {
-    try {
-        let articleData = req.body
-        let data = await articleControleer.pushArticle(articleData);
-        res.status(constant.STATUS_CODE.OK)
-            .send(data)
-    } catch (err) {
-        res.status(constant.STATUS_CODE.BAD_REQUEST)
-            .send({
-                status: constant.STATUS_CODE.BAD_REQUEST,
-                data: constant.ERROR.BAD_REQUEST
-            })
-    }
-
-})
-
-router.post('/createComments', async (req: Request, res: Response) => {
-    try {
-        let commentData = req.body;
-        let data = await commentControler.createComments(commentData)
-        res.status(constant.STATUS_CODE.OK)
-            .send(data)
-    }
-    catch (err) {
-        console.log(err)
-        res.status(constant.STATUS_CODE.BAD_REQUEST)
-            .send({
-                status: constant.STATUS_CODE.BAD_REQUEST,
-                data: constant.ERROR.BAD_REQUEST
-            })
-    }
-})
+router.get('/listArticles', articleControler.listArticle)
+router.get('/listAllArticles', articleControler.listAllArticle)
+router.get('/getCommentById',validateMiddleware.validateGet(articleValidator.GetId),commentControler.getCommentById)
+router.get('/listComments',validateMiddleware.validateGet(articleValidator.GetId),articleControler.listComments)
+router.post('/postArticles', validateMiddleware.validate(articleValidator.postArticleSchema), articleControler.pushArticle)
+router.post('/createComments', validateMiddleware.validate(commentValidator.postCommentSchema), commentControler.createComments)
+router.post('/createRecComments', validateMiddleware.validate(commentValidator.recCommentSchema), commentControler.createRecComments)
 
 
 

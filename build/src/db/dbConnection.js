@@ -1,13 +1,18 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connect = void 0;
 var mongoose = require("mongoose");
 var constant = require('../config/config');
-// import mongoose from 'mongoose'
+var chalk_1 = __importDefault(require("chalk"));
 function connect() {
-    return mongoose.connect("mongodb://localhost:27017/library")
+    var dbName = constant.MONGO.DB_NAME;
+    var dbUrl = constant.MONGO.DB_URL + dbName;
+    return mongoose.connect(dbUrl)
         .then(function () {
-        console.log(constant.DB.CONNECTED);
+        console.log(chalk_1.default.yellowBright.bgMagenta.bold(constant.DB.CONNECTED));
     });
 }
 exports.connect = connect;

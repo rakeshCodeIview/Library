@@ -35,79 +35,114 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var articleutil = require('../utils/articles.utils');
 var constant = require('../config/config');
-function pushArticle(articleData) {
-    return __awaiter(this, void 0, void 0, function () {
-        var result, err_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, articleutil.pushArticle(articleData)];
-                case 1:
-                    result = _a.sent();
-                    return [2 /*return*/, {
-                            status: constant.STATUS_CODE.OK,
-                            data: result
-                        }];
-                case 2:
-                    err_1 = _a.sent();
-                    return [2 /*return*/, {
-                            status: constant.STATUS_CODE.BAD_REQUEST,
-                            data: err_1
-                        }];
-                case 3: return [2 /*return*/];
-            }
-        });
+var pushArticle = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var articleData, data, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                articleData = req.body;
+                return [4 /*yield*/, articleutil.pushArticle(articleData)];
+            case 1:
+                data = _a.sent();
+                res.status(constant.STATUS_CODE.OK)
+                    .send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                res.status(constant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: constant.STATUS_CODE.BAD_REQUEST,
+                    data: constant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
-function listArticle(id) {
-    return __awaiter(this, void 0, void 0, function () {
-        var result, err_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, articleutil.listArticle(id)];
-                case 1:
-                    result = _a.sent();
-                    return [2 /*return*/, {
-                            status: constant.STATUS_CODE.OK,
-                            data: result
-                        }];
-                case 2:
-                    err_2 = _a.sent();
-                    throw err_2;
-                case 3: return [2 /*return*/];
-            }
-        });
+}); };
+var listArticle = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var reqData, data, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                reqData = req.query;
+                return [4 /*yield*/, articleutil.listArticle(reqData.id)];
+            case 1:
+                data = _a.sent();
+                console.log(data);
+                res.status(constant.STATUS_CODE.OK)
+                    .send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                res.status(constant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: constant.STATUS_CODE.BAD_REQUEST,
+                    data: constant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
-function listAllArticle(page) {
-    return __awaiter(this, void 0, void 0, function () {
-        var result, err_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, articleutil.listAllArticle(page)];
-                case 1:
-                    result = _a.sent();
-                    return [2 /*return*/, {
-                            status: constant.STATUS_CODE.OK,
-                            data: result
-                        }];
-                case 2:
-                    err_3 = _a.sent();
-                    throw err_3;
-                case 3: return [2 /*return*/];
-            }
-        });
+}); };
+var listAllArticle = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var page, data, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                page = req.query.page;
+                return [4 /*yield*/, articleutil.listAllArticle(page)];
+            case 1:
+                data = _a.sent();
+                console.log(data);
+                res.status(constant.STATUS_CODE.OK)
+                    .send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.status(constant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: constant.STATUS_CODE.BAD_REQUEST,
+                    data: constant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
     });
-}
+}); };
+var listComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var commentData, data, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                commentData = req.query;
+                return [4 /*yield*/, articleutil.listComments(commentData.id)];
+            case 1:
+                data = _a.sent();
+                res.status(constant.STATUS_CODE.OK)
+                    .send(data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_4 = _a.sent();
+                res.status(constant.STATUS_CODE.BAD_REQUEST)
+                    .send({
+                    status: constant.STATUS_CODE.BAD_REQUEST,
+                    data: constant.ERROR.BAD_REQUEST
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 module.exports = {
     pushArticle: pushArticle,
     listArticle: listArticle,
-    listAllArticle: listAllArticle
+    listAllArticle: listAllArticle,
+    listComments: listComments
 };
