@@ -3,15 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var comments_model_1 = require("../models/comments.model");
 var constant = require('../config/config');
 var ObjectId = require('mongoose').Types.ObjectId;
-function getCommentById(articleId) {
+function getCommentById(_id) {
     return new Promise(function (resolve, reject) {
         comments_model_1.Comment.findOne({
-            _id: new ObjectId(articleId)
+            _id: new ObjectId(_id)
         }, function (err, data) {
             if (err || !data)
                 reject(err);
             else
-                resolve(data);
+                console.log(data);
+            resolve(data);
         });
     });
 }
@@ -19,6 +20,7 @@ function createComments(comments) {
     return new Promise(function (resolve, reject) {
         comments_model_1.Comment.create({
             comment: comments.comment,
+            nickName: comments.nickName,
             createdAt: new Date(),
             articleId: new ObjectId(comments.articleId)
         }, function (err, data) {
@@ -41,6 +43,7 @@ function createRecComments(comments) {
                 }
                 res.recComments.push({
                     comment: comments.comment,
+                    nickName: comments.nickName,
                     Date: new Date()
                 });
                 res.save(function (err, data) {

@@ -22,10 +22,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Yup = __importStar(require("yup"));
 var postCommentSchema = Yup.object().shape({
     comment: Yup.string().trim().max(200).required(),
+    nickName: Yup.string().trim().max(20).required(),
     articleId: Yup.string().trim().length(24).required()
 });
 var recCommentSchema = Yup.object().shape({
     comment: Yup.string().trim().max(200).required(),
+    nickName: Yup.string().trim().max(20).required(),
     commentId: Yup.string().trim().length(24).required()
 });
 module.exports = {

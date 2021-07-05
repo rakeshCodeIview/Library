@@ -81,7 +81,6 @@ var createRecComments = function (req, res) { return __awaiter(void 0, void 0, v
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                console.log("-----------", err_2);
                 res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: commentConstant.STATUS_CODE.BAD_REQUEST,

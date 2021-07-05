@@ -7,7 +7,8 @@ function pushArticle(articleData) {
     return new Promise(function (resolve, reject) {
         articles_model_1.Article.create({
             articleName: articleData.articleName,
-            author: articleData.author,
+            nickName: articleData.nickName,
+            content: articleData.content,
             createdAt: new Date()
         }, function (err, data) {
             if (err)

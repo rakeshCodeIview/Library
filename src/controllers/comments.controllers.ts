@@ -28,7 +28,6 @@ let createRecComments=async (req: Request, res: Response) => {
             })
     }
     catch (err) {
-        console.log("-----------",err)
         res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
             .send({
                 status: commentConstant.STATUS_CODE.BAD_REQUEST,
