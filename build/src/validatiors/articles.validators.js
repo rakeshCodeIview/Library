@@ -28,7 +28,11 @@ var postArticleSchema = Yup.object().shape({
 var GetId = Yup.object().shape({
     id: Yup.string().trim().length(24).required()
 });
+var GetPage = Yup.object().shape({
+    page: Yup.string().trim().max(5).required()
+});
 module.exports = {
     postArticleSchema: postArticleSchema,
-    GetId: GetId
+    GetId: GetId,
+    GetPage: GetPage
 };

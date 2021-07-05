@@ -10,10 +10,14 @@ let postArticleSchema = Yup.object().shape({
 let GetId = Yup.object().shape({
     id:Yup.string().trim().length(24).required()
 })
+let GetPage = Yup.object().shape({
+    page:Yup.string().trim().max(5).required()
+})
 
 module.exports = {
     postArticleSchema: postArticleSchema,
-    GetId:GetId
+    GetId:GetId,
+    GetPage
 }
 
 
