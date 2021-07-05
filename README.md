@@ -9,3 +9,6 @@
 
 ### MongoDB  URL ###
 * mongodb://localhost:27017/library
+
+### POSTMAN Collection ##
+* library.postman_collection.json
