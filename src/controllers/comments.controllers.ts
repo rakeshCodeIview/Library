@@ -4,7 +4,10 @@ import { Request, Response } from 'express';
 var ObjectId = require('mongoose').Types.ObjectId;
 import {sqlComments} from '../utils/comments.sql.utils';
 
-let createComments = async (req: Request, res: Response) => {
+
+export class commentController{
+
+ createComments = async (req: Request, res: Response) => {
     try {
         let commentData = req.body;
         // let data = await commentsUtil.createComments(commentData)
@@ -21,7 +24,7 @@ let createComments = async (req: Request, res: Response) => {
             })
     }
 }
-let createRecComments=async (req: Request, res: Response) => {
+ createRecComments=async (req: Request, res: Response) => {
     try {
         let commentData = req.body;
         // let _id=new ObjectId(commentData.commentId) 
@@ -43,7 +46,7 @@ let createRecComments=async (req: Request, res: Response) => {
             })
     }
 }
-let getCommentById = async (req: Request, res: Response) => {
+ getCommentById = async (req: Request, res: Response) => {
     try {
         let reqData = req.query;
         // let data = await commentsUtil.getCommentById(reqData.id);
@@ -59,8 +62,4 @@ let getCommentById = async (req: Request, res: Response) => {
             })
     }
 }
-module.exports = {
-    createComments: createComments,
-    createRecComments,
-    getCommentById
 }
