@@ -1,12 +1,48 @@
 import { Article } from '../models/articles.model';
 const constant = require('../config/config')
 var ObjectId = require('mongoose').Types.ObjectId;
+const mysql = require('mysql');
+import  chalk from 'chalk';
+const connection = mysql.createConnection(constant.mySql.connection);
+connection.connect((err: any) => {
+    if (err)
+        console.log(err)
+
+})
+
+function sqlPushArticle(articleData: any) {
+    return new Promise((resolve, reject) => {
+        let currDate = new Date().toISOString();
+        let query = `INSERT INTO article(articleName,nickname,content ,createdAt) VALUES("${articleData.articleName}","${articleData.nickName}","${articleData.content}","${currDate}")`;
+        connection.query(query, (err: any, result: any) => {
+            if (err)
+                reject(err)
+            else
+                resolve(result)
+        })
+    })
+}
+function sqlListArticle(articleId:any){
+   return new Promise((resolve,reject)=>{
+        let query=`SELECT  * FROM article WHERE id=${articleId}`;
+        console.log(chalk.greenBright.bold(query));
+        connection.query(query,(err:any,result:any)=>{
+            if (err)
+            reject (err)
+            else
+            {
+                resolve (result)
+            }
+       
+        })
+    })
+}
 
 function pushArticle(articleData: any) {
     return new Promise((resolve, reject) => {
         Article.create({
             articleName: articleData.articleName,
-            nickName:articleData.nickName,
+            nickName: articleData.nickName,
             content: articleData.content,
             createdAt: new Date()
         }, function (err, data) {
@@ -81,5 +117,7 @@ module.exports = {
     pushArticle: pushArticle,
     listArticle: listArticle,
     listAllArticle: listAllArticle,
-    listComments: listComments
+    listComments: listComments,
+    sqlPushArticle,
+    sqlListArticle
 }

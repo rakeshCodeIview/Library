@@ -8,7 +8,7 @@ let postArticleSchema = Yup.object().shape({
 })
 
 let GetId = Yup.object().shape({
-    id:Yup.string().trim().length(24).required()
+    id:Yup.string().trim().required()
 })
 let GetPage = Yup.object().shape({
     page:Yup.string().trim().max(5).required()

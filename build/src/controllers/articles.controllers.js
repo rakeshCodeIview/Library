@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var articleutil = require('../utils/articles.utils');
 var constant = require('../config/config');
+var articles_sql_utils_1 = require("../utils/articles.sql.utils");
 var pushArticle = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var articleData, data, err_1;
     return __generator(this, function (_a) {
@@ -45,7 +46,7 @@ var pushArticle = function (req, res) { return __awaiter(void 0, void 0, void 0,
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 articleData = req.body;
-                return [4 /*yield*/, articleutil.pushArticle(articleData)];
+                return [4 /*yield*/, new articles_sql_utils_1.sqlarticles().sqlPushArticle(articleData)];
             case 1:
                 data = _a.sent();
                 res.status(constant.STATUS_CODE.OK)
@@ -53,6 +54,7 @@ var pushArticle = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
+                console.log(err_1);
                 res.status(constant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: constant.STATUS_CODE.BAD_REQUEST,
@@ -70,7 +72,7 @@ var listArticle = function (req, res) { return __awaiter(void 0, void 0, void 0,
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 reqData = req.query;
-                return [4 /*yield*/, articleutil.listArticle(reqData.id)];
+                return [4 /*yield*/, new articles_sql_utils_1.sqlarticles().sqlListArticle(reqData.id)];
             case 1:
                 data = _a.sent();
                 console.log(data);
@@ -79,6 +81,7 @@ var listArticle = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
+                console.log(err_2);
                 res.status(constant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: constant.STATUS_CODE.BAD_REQUEST,
@@ -122,7 +125,7 @@ var listComments = function (req, res) { return __awaiter(void 0, void 0, void 0
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 commentData = req.query;
-                return [4 /*yield*/, articleutil.listComments(commentData.id)];
+                return [4 /*yield*/, new articles_sql_utils_1.sqlarticles().listComments(commentData.id)];
             case 1:
                 data = _a.sent();
                 res.status(constant.STATUS_CODE.OK)
@@ -130,6 +133,7 @@ var listComments = function (req, res) { return __awaiter(void 0, void 0, void 0
                 return [3 /*break*/, 3];
             case 2:
                 err_4 = _a.sent();
+                console.log(err_4);
                 res.status(constant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: constant.STATUS_CODE.BAD_REQUEST,

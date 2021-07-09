@@ -13,6 +13,15 @@ module.exports = {
 		DB_NAME: process.env.DB_NAME,
 		DB_URL: process.env.DB_URL
     },
+    mySql:{
+         connection : {
+            host:'localhost',
+            user:'root',
+            password:'apple@123',
+            database:  'library'
+        }
+        
+    },
     SERVER:{
         PORT:process.env.PORT
     },

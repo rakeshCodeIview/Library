@@ -26,7 +26,7 @@ var postArticleSchema = Yup.object().shape({
     content: Yup.string().min(10).max(500).required()
 });
 var GetId = Yup.object().shape({
-    id: Yup.string().trim().length(24).required()
+    id: Yup.string().trim().required()
 });
 var GetPage = Yup.object().shape({
     page: Yup.string().trim().max(5).required()
