@@ -5,12 +5,12 @@ let postCommentSchema = Yup.object().shape({
 
     comment:Yup.string().trim().max(200).required(),
     nickName:Yup.string().trim().max(20).required(),
-    articleId:Yup.string().trim().length(24).required()
+    articleId:Yup.string().trim().required()
 })
 let recCommentSchema=Yup.object().shape({
     comment:Yup.string().trim().max(200).required(),
     nickName:Yup.string().trim().max(20).required(),
-    commentId:Yup.string().trim().length(24).required()
+    commentId:Yup.string().trim().required()
 })
 
 module.exports = {

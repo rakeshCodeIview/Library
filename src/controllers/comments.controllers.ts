@@ -2,15 +2,18 @@ const commentsUtil = require('../utils/comments.utils')
 const commentConstant = require('../config/config')
 import { Request, Response } from 'express';
 var ObjectId = require('mongoose').Types.ObjectId;
+import {sqlComments} from '../utils/comments.sql.utils';
 
 let createComments = async (req: Request, res: Response) => {
     try {
         let commentData = req.body;
-        let data = await commentsUtil.createComments(commentData)
+        // let data = await commentsUtil.createComments(commentData)
+        let data = await new sqlComments().createComments(commentData)
         res.status(commentConstant.STATUS_CODE.OK)
             .send(data)
     }
     catch (err) {
+        console.log(err)
         res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
             .send({
                 status: commentConstant.STATUS_CODE.BAD_REQUEST,
@@ -21,8 +24,9 @@ let createComments = async (req: Request, res: Response) => {
 let createRecComments=async (req: Request, res: Response) => {
     try {
         let commentData = req.body;
-        let _id=new ObjectId(commentData.commentId) 
-        let data = await commentsUtil.createRecComments(commentData)
+        // let _id=new ObjectId(commentData.commentId) 
+        // let data = await commentsUtil.createRecComments(commentData)
+        let data = await new sqlComments().createRecComments(commentData)
         
         res.status(commentConstant.STATUS_CODE.OK)
             .send({
@@ -31,6 +35,7 @@ let createRecComments=async (req: Request, res: Response) => {
             })
     }
     catch (err) {
+        console.log(err)
         res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
             .send({
                 status: commentConstant.STATUS_CODE.BAD_REQUEST,
@@ -41,8 +46,9 @@ let createRecComments=async (req: Request, res: Response) => {
 let getCommentById = async (req: Request, res: Response) => {
     try {
         let reqData = req.query;
-        let data = await commentsUtil.getCommentById(reqData.id);
-        console.log(data)
+        // let data = await commentsUtil.getCommentById(reqData.id);
+        let data = await new sqlComments().getCommentById(reqData.id);
+        
         res.status(commentConstant.STATUS_CODE.OK)
             .send(data)
     } catch (err) {

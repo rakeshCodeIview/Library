@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var commentsUtil = require('../utils/comments.utils');
 var commentConstant = require('../config/config');
 var ObjectId = require('mongoose').Types.ObjectId;
+var comments_sql_utils_1 = require("../utils/comments.sql.utils");
 var createComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var commentData, data, err_1;
     return __generator(this, function (_a) {
@@ -46,7 +47,7 @@ var createComments = function (req, res) { return __awaiter(void 0, void 0, void
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 commentData = req.body;
-                return [4 /*yield*/, commentsUtil.createComments(commentData)];
+                return [4 /*yield*/, new comments_sql_utils_1.sqlComments().createComments(commentData)];
             case 1:
                 data = _a.sent();
                 res.status(commentConstant.STATUS_CODE.OK)
@@ -54,6 +55,7 @@ var createComments = function (req, res) { return __awaiter(void 0, void 0, void
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
+                console.log(err_1);
                 res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: commentConstant.STATUS_CODE.BAD_REQUEST,
@@ -65,14 +67,13 @@ var createComments = function (req, res) { return __awaiter(void 0, void 0, void
     });
 }); };
 var createRecComments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var commentData, _id, data, err_2;
+    var commentData, data, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 commentData = req.body;
-                _id = new ObjectId(commentData.commentId);
-                return [4 /*yield*/, commentsUtil.createRecComments(commentData)];
+                return [4 /*yield*/, new comments_sql_utils_1.sqlComments().createRecComments(commentData)];
             case 1:
                 data = _a.sent();
                 res.status(commentConstant.STATUS_CODE.OK)
@@ -83,6 +84,7 @@ var createRecComments = function (req, res) { return __awaiter(void 0, void 0, v
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
+                console.log(err_2);
                 res.status(commentConstant.STATUS_CODE.BAD_REQUEST)
                     .send({
                     status: commentConstant.STATUS_CODE.BAD_REQUEST,
@@ -100,10 +102,9 @@ var getCommentById = function (req, res) { return __awaiter(void 0, void 0, void
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 reqData = req.query;
-                return [4 /*yield*/, commentsUtil.getCommentById(reqData.id)];
+                return [4 /*yield*/, new comments_sql_utils_1.sqlComments().getCommentById(reqData.id)];
             case 1:
                 data = _a.sent();
-                console.log(data);
                 res.status(commentConstant.STATUS_CODE.OK)
                     .send(data);
                 return [3 /*break*/, 3];

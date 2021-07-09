@@ -1,9 +1,4 @@
-import { Article } from '../models/articles.model';
-const constant = require('../config/config')
-var ObjectId = require('mongoose').Types.ObjectId;
-const mysql = require('mysql');
-import chalk from 'chalk';
-import { connect } from '../db/dbConnection';
+
 import { mysqlDbConnection } from '../db/mysqlDb.connection';
 
 export class sqlarticles {

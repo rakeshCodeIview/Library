@@ -36,60 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sqlarticles = void 0;
+exports.sqlComments = void 0;
 var mysqlDb_connection_1 = require("../db/mysqlDb.connection");
-var sqlarticles = /** @class */ (function () {
-    function sqlarticles() {
+var sqlComments = /** @class */ (function () {
+    function sqlComments() {
+        this.query = '';
+        this.currDate = new Date().toISOString();
     }
-    sqlarticles.prototype.sqlPushArticle = function (articleData) {
+    sqlComments.prototype.createComments = function (comments) {
         return __awaiter(this, void 0, void 0, function () {
-            var currDate, query;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        currDate = new Date().toISOString();
-                        query = "INSERT INTO article(articleName,nickname,content ,createdAt) \n                        VALUES(\"" + articleData.articleName + "\",\"" + articleData.nickName + "\",\"" + articleData.content + "\",\"" + currDate + "\")";
-                        return [4 /*yield*/, new mysqlDb_connection_1.mysqlDbConnection().Query(query)];
+                        this.query = "insert into comments (createdAt,nickname,articleId,comment) VALUES(\"" + this.currDate + "\",\"" + comments.nickName + "\"," + comments.articleId + ",\"" + comments.comment + "\")";
+                        return [4 /*yield*/, new mysqlDb_connection_1.mysqlDbConnection().Query(this.query)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
-            });
-        });
-    };
-    sqlarticles.prototype.sqlListArticle = function (articleId) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = "SELECT  * FROM article WHERE id=" + articleId;
-                        return [4 /*yield*/, new mysqlDb_connection_1.mysqlDbConnection().Query(query)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    sqlarticles.prototype.listComments = function (id_) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = "select * \n                        from article a,comments c\n                        where a.id=c.articleId and a.id=" + id_;
-                        return [4 /*yield*/, new mysqlDb_connection_1.mysqlDbConnection().Query(query)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    sqlarticles.prototype.ping = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log("hi");
-                return [2 /*return*/];
             });
         });
     };
     ;
-    return sqlarticles;
+    sqlComments.prototype.getCommentById = function (_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.query = "select * from comments where id=" + _id;
+                        return [4 /*yield*/, new mysqlDb_connection_1.mysqlDbConnection().Query(this.query)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    sqlComments.prototype.createRecComments = function (comments) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.query = "insert into RecComments (createdAt,nickname,commentId,comment) VALUES(\"" + this.currDate + "\",\"" + comments.nickName + "\"," + comments.commentId + ",\"" + comments.comment + "\")";
+                        return [4 /*yield*/, new mysqlDb_connection_1.mysqlDbConnection().Query(this.query)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    return sqlComments;
 }());
-exports.sqlarticles = sqlarticles;
+exports.sqlComments = sqlComments;
