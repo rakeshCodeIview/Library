@@ -39,38 +39,65 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var constant = require('./src/config/config');
-var bodyParser = require("body-parser");
-var routes_1 = __importDefault(require("./src/routes/routes"));
-var articles_sql_utils_1 = require("./src/utils/articles.sql.utils");
-var typeormdb_connection_1 = require("./src/db/typeormdb.connection");
-var chalk_1 = __importDefault(require("chalk"));
-var app = (0, express_1.default)();
-var port = constant.SERVER.PORT;
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+exports.TryDBConnect = exports.DBConnect = void 0;
+var typeorm_1 = require("typeorm");
+var orm_config_1 = __importDefault(require("./orm.config"));
+var DBConnect = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var connection, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, typeormdb_connection_1.TryDBConnect)(function () {
-                    res.json({
-                        error: 'Database connection error, please try again later',
-                    });
-                }, next)];
+            case 0:
+                try {
+                    connection = (0, typeorm_1.getConnection)();
+                }
+                catch (e) {
+                }
+                _a.label = 1;
             case 1:
+                _a.trys.push([1, 7, , 8]);
+                if (!connection) return [3 /*break*/, 4];
+                if (!!connection.isConnected) return [3 /*break*/, 3];
+                return [4 /*yield*/, connection.connect()];
+            case 2:
                 _a.sent();
-                return [2 /*return*/];
+                _a.label = 3;
+            case 3: return [3 /*break*/, 6];
+            case 4: return [4 /*yield*/, (0, typeorm_1.createConnection)(orm_config_1.default)];
+            case 5:
+                _a.sent();
+                _a.label = 6;
+            case 6:
+                console.log(" Database connection was successful!");
+                return [3 /*break*/, 8];
+            case 7:
+                e_1 = _a.sent();
+                console.error('ERROR: Database connection failed!!', e_1);
+                throw e_1;
+            case 8: return [2 /*return*/];
         }
     });
-}); });
-app.use('/api', routes_1.default);
-app.get('/', function (req, res) {
-    new articles_sql_utils_1.sqlarticles().ping();
-    res.send("pong");
-});
-app.listen(port, function () {
-    console.log(chalk_1.default.yellowBright.bgMagenta.bold(constant.SERVER_STARTED + " : " + port));
-    // new mysqlDbConnection().mysqlconnect();
-    // connect();
-});
+}); };
+exports.DBConnect = DBConnect;
+var TryDBConnect = function (onError, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var e_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                console.log("hello");
+                return [4 /*yield*/, (0, exports.DBConnect)()];
+            case 1:
+                _a.sent();
+                if (next) {
+                    next();
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                e_2 = _a.sent();
+                onError();
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.TryDBConnect = TryDBConnect;

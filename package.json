@@ -18,6 +18,7 @@
     "mongoose": "^5.13.1",
     "mysql": "^2.18.1",
     "node-uuid": "^1.4.8",
+    "typeorm": "^0.2.34",
     "yup": "^0.32.9"
   },
   "devDependencies": {

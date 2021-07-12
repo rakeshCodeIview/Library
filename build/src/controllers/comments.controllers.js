@@ -36,13 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.commentComponent = void 0;
+exports.commentController = void 0;
 var commentsUtil = require('../utils/comments.utils');
 var commentConstant = require('../config/config');
 var ObjectId = require('mongoose').Types.ObjectId;
 var comments_sql_utils_1 = require("../utils/comments.sql.utils");
-var commentComponent = /** @class */ (function () {
-    function commentComponent() {
+var commentController = /** @class */ (function () {
+    function commentController() {
         var _this = this;
         this.createComments = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var commentData, data, err_1;
@@ -125,6 +125,6 @@ var commentComponent = /** @class */ (function () {
             });
         }); };
     }
-    return commentComponent;
+    return commentController;
 }());
-exports.commentComponent = commentComponent;
+exports.commentController = commentController;
